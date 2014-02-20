@@ -1,0 +1,28 @@
+<?php $legal = $this->legal; ?>
+<div class="form-group">
+    <legend><?php echo $this->translate('Dados de Pessoa Jurídica') ?></legend>
+    <?php echo $this->formHidden($legal->get('legalId')); ?>
+    <div class="row">
+        <div class="col-md-3">
+            <?php echo $this->formLabel($legal->get('legalCnpj')); ?>
+            <?php echo $this->formText($legal->get('legalCnpj')); ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $this->formLabel($legal->get('legalSubscription')); ?>
+            <?php echo $this->formText($legal->get('legalSubscription')); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <?php echo $this->formLabel($legal->get('legalRepresentativeName')); ?>
+            <?php echo $this->formText($legal->get('legalRepresentativeName')); ?>
+        </div>
+        <div class="col-md-2">
+            <?php echo $this->formLabel($legal->get('legalRepresentativePhone')); ?>
+            <div class="input-group">
+                <span class="input-group-addon">+55</span>
+                <?php echo $this->formText($legal->get('legalRepresentativePhone')); ?>
+            </div>
+        </div>
+    </div>
+</div>

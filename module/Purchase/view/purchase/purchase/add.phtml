@@ -1,0 +1,100 @@
+<?php
+$title = $this->translate('Adicionar Compra');
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+$form = $this->form;
+$form->prepare();
+?>
+<div class="row-fluid">
+    <div class="span3">
+        <div class="widget">
+            <div class="widget-header">
+                <i class="manager-icon-shopping-cart"></i>
+                <h3>Compra</h3>
+            </div>
+            <div class="widget-content">
+                <?php echo $this->form()->openTag($form); ?>
+                <fieldset>
+                    <?php $purchase = $form->get('purchase'); ?>
+                    <?php echo $this->formHidden($purchase->get('purchaseId')); ?>
+                    <?php echo $this->formHidden($purchase->get('companyId')->setValue($this->companyAuth()->getCompanyId())); ?>
+                    <?php echo $this->formHidden($purchase->get('purchaseUid')); ?>
+                    <div class="control-group">
+                        <div class="control-label">
+                            <label><?php echo $this->translate('Data da Compra'); ?></label>
+                        </div>
+                        <div class="controls">
+                            <?php echo $this->formText($purchase->get('purchaseDate')); ?>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="control-label">
+                            <label><?php echo $this->translate('Fornecedor'); ?></label>
+                        </div>
+                        <div class="controls">
+                            <?php echo $this->formSelect($purchase->get('supplierId')); ?>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="control-label">
+                            <label><?php echo $this->translate('Funcionário'); ?></label>
+                        </div>
+                        <div class="controls">
+                            <?php echo $this->formSelect($purchase->get('employeeId')); ?>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="control-label">
+                            <label><?php echo $this->translate('Desconto'); ?></label>
+                        </div>
+                        <div class="controls">
+                            <div class="input-prepend">
+                                <div class="add-on">R$</div>
+                                <?php echo $this->formText($purchase->get('purchaseDiscount')); ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="control-group">
+                        <div class="control-label">
+                            <label><?php echo $this->translate('Total'); ?></label>
+                        </div>
+                        <div class="controls">
+                            <div class="input-prepend">
+                                <div class="add-on">R$</div>
+                                <?php echo $this->formText($purchase->get('purchaseTotal')); ?>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <div class="form-actions">
+                    <?php echo $this->formHidden($form->get('security')); ?>
+                    <?php echo $this->formElement($form->get('submit')); ?>
+                    <?php echo $this->formElement($form->get('cancel')); ?>
+                </div>
+                <?php echo $this->form()->closeTag(); ?>
+            </div>
+        </div>
+    </div>
+    <div class="span9">
+        <div class="widget">
+            <div class="widget-header">
+                <i class="manager-icon-playing-dices"></i>
+                <h3>Detalhes da Compra</h3>
+            </div>
+            <div class="widget-content">
+                <form class="form-inline modal-form" method="post" action="" style="padding-bottom: 20px;">
+                    <input type="text" class="span1" value="1" placeholder="Qtde" id="quantity" name="quantity" />
+                    <input type="text" class="span3" value="" placeholder="Cód. Barras" id="barcode" name="barcode" />
+                    <input type="text" autocomplete="off" data-provide="typeahead" class="span4" value="" placeholder="Descrição" id="purchaseProduct" name="description" />
+                </form>
+                <div id="productList"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('#productList').load('/admin/purchase/listproducts');
+    calculatePurchase();
+</script>

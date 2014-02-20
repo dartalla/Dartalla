@@ -1,0 +1,41 @@
+<?php
+$products = $this->products;
+//Zend\Debug\Debug::dump($products);
+?>
+<div class="widget widget-table">
+    <div class="widget-header">
+        <i class="manager-icon-playing-dices"></i>
+        <h3>Lista de Produtos</h3>
+    </div>
+    <div class="widget-content">
+        <table class="table">
+            <thead>
+            <th><?php echo $this->translate('Descrição do Produto'); ?></th>
+            <th class="span1"><?php echo $this->translate('Qtde.'); ?></th>
+            <th class="span2"><?php echo $this->translate('Valor Unit.'); ?></th>
+            <th class="span2"><?php echo $this->translate('Subtotal'); ?></th>
+            <th class="span2"><?php echo $this->translate('Ações'); ?></th>
+            </thead>
+            <tbody>
+                <?php if (count($products) > 0): ?>
+                    <?php foreach ($products as $key => $product): ?>
+                        <tr>
+                            <td><?php echo $product['productName']; ?></td>
+                            <td><input type="text" class="span13" value="<?php echo $product['quantity'] ?>" id="productQuantity<?=$key?>" /></td>
+                            <td><?php echo $this->currency($product['productPrice']); ?></td>
+                            <td><?php echo $this->currency($product['subtotal']); ?></td>
+                            <td>
+                                <a href="javascript: updatePurchaseProduct(<?=$key;?>);" class="btn btn-info" data-toggle="tooltip" rel="tooltip" title="Atualizar Item"><i class="manager-icon-refresh"></i></a>
+                                <a href="javascript: deletePurchaseProductFromList('/admin/purchase/deleteproduct', <?php echo $key ?>);" class="btn btn-danger" data-toggle="tooltip" title="Apagar Item"><i class="manager-icon-delete"></i></a>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="20"><?php echo $this->info('Nenhum produto adicionado ainda para esta venda.'); ?></td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+</div>

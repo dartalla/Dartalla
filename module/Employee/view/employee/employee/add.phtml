@@ -1,0 +1,100 @@
+<?php
+$title = $this->translate('Novo Funcionário');
+$this->headTitle($title);
+?>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('admin/employee/add', array('action' => 'add')));
+$form->prepare();
+?>
+<h2 class="container-header"><i class="glyphicon glyphicon-wrench"></i> <?php echo $this->escapeHtml($title); ?></h2>
+<?php echo $this->form()->openTag($form); ?>
+<?php $employee = $form->get('employee'); ?>
+<div class="tabbable">
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#tab1" data-toggle="tab"><?php echo $this->translate('Dados Gerais'); ?></a>
+        </li>
+        <li>
+            <a href="#tab2" data-toggle="tab"><?php echo $this->translate('Dados Pessoais'); ?></a>
+        </li>
+        <li>
+            <a href="#tab3" data-toggle="tab"><?php echo $this->translate('Dados do Funcionário'); ?></a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+            <?php $person = $employee->get('person'); ?>
+            <?php echo $this->personForm($person); ?>
+        </div>
+        <div class="tab-pane" id="tab2">
+            <?php echo $this->individualForm($person->get('individual')); ?>
+        </div>
+        <div class="tab-pane" id="tab3">
+            <legend><?php echo $this->translate('Dados do Funcionário') ?></legend>
+            <?php echo $this->formHidden($employee->get('employeeId')); ?>
+            <?php echo $this->formHidden($employee->get('companyId')->setValue($this->companyAuth()->getCompanyId())); ?>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <?php echo $this->formLabel($employee->get('employeeStatusId')); ?>
+                        <?php echo $this->formSelect($employee->get('employeeStatusId')); ?>
+                    </div>
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($employee->get('employeeWorkTime')); ?>
+                        <div class="input-group">
+                            <?php echo $this->formText($employee->get('employeeWorkTime')); ?>
+                            <div class="input-group-addon input-sm">hs</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($employee->get('employeeCtps')); ?>
+                        <?php echo $this->formText($employee->get('employeeCtps')); ?>
+                    </div>
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($employee->get('employeeCtpsSerie')); ?>
+                        <?php echo $this->formText($employee->get('employeeCtpsSerie')); ?>
+                    </div>
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($employee->get('employeePis')); ?>
+                        <?php echo $this->formText($employee->get('employeePis')); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($employee->get('employeeSalary')); ?>
+                        <div class="input-group">
+                            <span class="input-group-addon">R$</span>
+                            <?php echo $this->formText($employee->get('employeeSalary')); ?>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($employee->get('employeeBonus')); ?>
+                        <div class="input-group">
+                            <span class="input-group-addon">R$</span>
+                            <?php echo $this->formText($employee->get('employeeBonus')); ?>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($employee->get('employeeCommission')); ?>
+                        <div class="input-group">
+                            <?php echo $this->formText($employee->get('employeeCommission')); ?>
+                            <div class="input-group-addon input-sm">%</div>
+                        </div>
+                    </div>
+                </div>
+                <?php echo $this->formRow($employee->get('employeePicture')); ?>
+            </div>
+        </div>
+        </ul>
+    </div>
+    <?php echo $this->formRow($form->get('security')); ?>
+    <div class="btn-group">
+        <?php echo $this->formSubmit($form->get('submit')); ?>
+        <?php echo $this->formRow($form->get('cancel')); ?>
+    </div>
+</div>
+<?php echo $this->form()->closeTag(); ?>
+

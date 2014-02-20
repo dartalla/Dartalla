@@ -1,0 +1,92 @@
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="glyphicon glyphicon-bar"></span>
+            <span class="glyphicon glyphicon-bar"></span>
+            <span class="glyphicon glyphicon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="<?php echo $this->url('admin'); ?>">
+            <img src="<?php echo $this->basePath();?>/img/marca.png" height="25px" class="img-rounded" />
+        </a>
+    </div>
+    <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-shopping-cart"></i> <?php echo $this->translate('Negócios'); ?> <b class="caret"></b></a>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> <?php echo $this->translate('Cadastros'); ?> <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="<?php echo $this->url('admin/employee'); ?>"><i class="glyphicon glyphicon-wrench"></i> <?php echo $this->translate('Funcionários') ?></a></li>
+                    <li><a href="<?php echo $this->url('admin/customer'); ?>"><i class="glyphicon glyphicon-user"></i> <?php echo $this->translate('Clientes') ?></a></li>
+                    <li><a href="<?php echo $this->url('admin/supplier'); ?>"><i class="fa fa-truck"></i> <?php echo $this->translate('Fornecedores') ?></a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-usd"></i> <?php echo $this->translate('Financeiro'); ?> <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="<?php echo $this->url('admin/financial/receivable'); ?>"><i class="glyphicon glyphicon-ok"></i> <?php echo $this->translate('Contas a Receber') ?></a></li>
+                    <li><a href="<?php echo $this->url('admin/financial/payable'); ?>"><i class="glyphicon glyphicon-remove"></i> <?php echo $this->translate('Contas a Pagar') ?></a></li>
+                    <li class="divider"></li>
+                    <li><a href="<?php echo $this->url('admin/financial/revenue'); ?>"><i class="glyphicon glyphicon-resize-small"></i> <?php echo $this->translate('Receitas') ?></a></li>
+                    <li><a href="<?php echo $this->url('admin/financial/expense'); ?>"><i class="glyphicon glyphicon-resize-full"></i> <?php echo $this->translate('Despesas') ?></a></li>
+                    <li class="divider"></li>
+                    <li><a href="<?php echo $this->url('admin/financial/cash'); ?>"><i class="glyphicon glyphicon-usd"></i> <?php echo $this->translate('Caixa') ?></a></li>
+                </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-cog"></i> <?php echo $this->translate('Configurações'); ?> <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="<?php echo $this->url('admin/company'); ?>"><i class="glyphicon glyphicon-barcode"></i> <?php echo $this->translate('Empresas'); ?></a></li>
+                    <li class="divider"></li>
+                    <li class="dropdown-submenu">
+                        <a href="#"><i class="fa fa-list"></i> <?php echo $this->translate('Comercial') ?></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo $this->url('admin/product'); ?>"><?php echo $this->translate('Produtos'); ?></a>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#"><i class="glyphicon glyphicon-usd"></i> <?php echo $this->translate('Financeiro') ?></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo $this->url('admin/bank'); ?>"><?php echo $this->translate('Bancos'); ?></a>
+                            <li><a href="<?php echo $this->url('admin/currency'); ?>"><?php echo $this->translate('Moedas'); ?></a>
+                            <li class="divider"></li>
+                            <li><a href="<?php echo $this->url('admin/current-account'); ?>"><?php echo $this->translate('Contas Corrente'); ?></a>
+                            <li class="divider"></li>
+                            <li><a href="<?php echo $this->url('admin/payment-type'); ?>"><?php echo $this->translate('Formas de Pagamentos'); ?></a>
+                            <li><a href="<?php echo $this->url('admin/accounting-item'); ?>"><?php echo $this->translate('Itens Contábeis'); ?></a>
+                            <li><a href="<?php echo $this->url('admin/document-type'); ?>"><?php echo $this->translate('Tipos de Documentos'); ?></a>
+                        </ul>
+                    </li>
+                    <li class="dropdown-submenu">
+                        <a href="#"><i class="glyphicon glyphicon-user"></i> <?php echo $this->translate('Pessoal') ?></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo $this->url('admin/employee-status'); ?>"><i class="glyphicon glyphicon-compass"></i> <?php echo $this->translate('Situações do Funcionário'); ?></a>
+                            <li class="divider"></li>
+                            <li><a href="<?php echo $this->url('admin/occupation'); ?>"><i class="glyphicon glyphicon-nameplate"></i> <?php echo $this->translate('Profissões'); ?></a>
+                            <li><a href="<?php echo $this->url('admin/office'); ?>"><i class="glyphicon glyphicon-nameplate"></i> <?php echo $this->translate('Cargos'); ?></a>
+                            <li><a href="<?php echo $this->url('admin/department'); ?>"><i class="glyphicon glyphicon-suitcase"></i> <?php echo $this->translate('Departamentos'); ?></a>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div class="navbar-right">
+            <?php if ($this->zfcUserIdentity() !== false): ?>
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="glyphicon glyphicon-user"></i>
+                            <?php echo $this->zfcUserIdentity()->getUsername(); ?> <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="<?php echo $this->basePath() . '/user/change-password'; ?>"><i class="fa fa-key"></i> <?php echo $this->translate('Alterar Senha'); ?></a></li>
+                            <li><a href="<?php echo $this->basePath() . '/user/logout'; ?>"><i class="glyphicon glyphicon-off"></i> <?php echo $this->translate('Sair'); ?></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            <?php endif; ?>
+        </div>
+    </div>
+</div>

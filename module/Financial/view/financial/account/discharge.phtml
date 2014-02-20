@@ -1,0 +1,21 @@
+<?php
+$account = $this->account;
+$form = $this->form;
+?>
+<div role="dialog" class="modal hide fade" id="dischargeModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-header"><h4>Baixa de Conta</h4></div>
+    <div class="modal-body">
+        <?php echo $this->form()->openTag($form); ?>
+        <div class="control-group">
+            <label class="control-label">Vencimento</label>
+            <div class="controls">
+                <?php echo $this->formText($form->get('expiration')
+                        ->setValue($account->getAccount()->getAccountExpirationDate())); ?>
+            </div>
+        </div>
+        <?php echo $this->form()->closeTag($form); ?>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">Fechar</button>
+    </div>
+</div>

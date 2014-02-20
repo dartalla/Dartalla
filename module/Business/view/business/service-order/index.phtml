@@ -1,0 +1,77 @@
+<?php
+$title = $this->translate('Ordens de Serviço');
+$this->headTitle($title);
+?>
+<h1 class="row-fluid">
+    <div class="span6">
+        <?php echo $this->escapeHtml($title); ?>
+    </div>
+    <div class="pull-right">
+        <div class="btn-group">
+            <a class="btn" href="<?php echo $this->url('admin/financial/service-order/add', array('action' => 'add')); ?>"> <i class="icon-plus"></i> <?php echo $this->translate('Novo'); ?></a>
+        </div>
+    </div> 
+</h1>
+<div class="row-fluid">
+    <div class="span2">
+        <div class="widget widget-table">
+            <div class="widget-header">
+                <h3>Total a Pagar</h3>
+            </div>
+            <div class="widget-content" dir="rtl">
+                <h3 class="text-warning"><?php echo $this->currency($this->total['total']); ?></h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="span10">
+        <div class="widget widget-table">
+            <div class="widget-header">
+                <i class="manager-icon-nameplate"></i>
+                <h3>Ordens de Serviço</h3>
+            </div>
+            <div class="widget-content">
+                <table class="table table-bordered">
+                    <tr>
+                        <th class=""><?php echo $this->translate('Descrição'); ?></th>
+                        <th class=""><?php echo $this->translate('Pagar Para'); ?></th>
+                        <th class="span2"><?php echo $this->translate('Valor'); ?></th>
+                        <th class="span1"><?php echo $this->translate('Vencimento'); ?></th>
+                        <th class="span1"><?php echo $this->translate('Ações'); ?></th>
+                    </tr>
+                    <?php if (0 == count($this->service-order)): ?>
+                        <tr>
+                            <td colspan="10"><?php echo $this->translate('Não há registros no banco de dados.') ?></td>
+                        </tr>
+                    <?php else: ?>
+                        <?php foreach ($this->service-order as $serviceOrder) : ?>
+                            <tr>
+                                <td><?php echo $this->escapeHtml($serviceOrder->getAccount()->getAccountDescription()); ?></td>
+                                <td><?php echo $this->escapeHtml($serviceOrder->getSupplierId()->getPerson()->getPersonName()); ?></td>
+                                <td><?php echo $this->currency($serviceOrder->getAccount()->getAccountValue()); ?></td>
+                                <td><?php echo $this->escapeHtml($serviceOrder->getAccount()->getAccountExpirationDate()); ?></td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a class="btn btn-mini" href="<?php echo $this->url('admin/financial/service-order/edit', array('action' => 'edit', 'id' => $serviceOrder->getSaleId()))
+                            ?>"><i class="icon-edit"></i></a>
+                                        <a class="btn btn-mini" href="<?php echo $this->url('admin/financial/service-order/delete', array('action' => 'delete', 'id' => $serviceOrder->getSaleId()))
+                            ?>"><i class="icon-remove"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+            <?php
+            $paginationInfo = $this->placeholder('pagination');
+            if (!isset($paginationInfo->route)) {
+                $paginationInfo->route = 'admin/financial/service-order';
+                $paginationInfo->params = array();
+            }
+            ?>
+            <?php echo $this->paginationControl($this->service-order, 'Sliding', 'layout/pagination'); ?>
+        </div>
+    </div>
+</div>

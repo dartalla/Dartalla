@@ -1,0 +1,77 @@
+<?php
+$purchase = $this->purchase;
+$purchaseProducts = $purchase->getProducts();
+$title = 'Detalhes da Compra - nº ' . $purchase->getPurchaseId();
+$this->headTitle($title);
+?>
+<div class="container-fluid">
+    <legend>
+        <h1>Dados da Compra</h1>
+        <div class="row-fluid">
+            <div class="span6">
+                <small><strong>Cliente: </strong><?php echo $purchase->getSupplierId()->getSupplierName(); ?></small>
+            </div>
+            <div class="pull-right">
+                <div class="btn-group">
+                    <a class="btn" href="<?php echo $this->url('admin/purchase/add', array('action' => 'add')); ?>"><i class="icon-plus"></i> Novo</a></li>
+                    <a class="btn" href="<?php echo $this->url('admin/purchase/delete', array('action' => 'delete', 'id' => $purchase->getPurchaseId())); ?>"><i class="icon-remove"></i> <?php echo $this->translate('Apagar'); ?></a>
+                    <a class="btn" href="<?php echo $this->url('admin/purchase'); ?>"><i class="manager-icon-unshare"></i> <?php echo $this->translate('Voltar'); ?></a>
+                </div>
+            </div>
+        </div>
+    </legend>
+    <dl class="dl-horizontal">
+        <div class="row-fluid">
+            <div class="span5">
+                <dt>Cód.:</dt>
+                <dd><?php echo $purchase->getPurchaseId(); ?>&nbsp;</dd>
+                <dt>Cliente.:</dt>
+                <dd><?php echo $purchase->getSupplierId()->getSupplierName(); ?>&nbsp;</dd>
+                <dt>Operador.:</dt>
+                <dd><?php echo $purchase->getEmployeeId()->getEmployeeName(); ?>&nbsp;</dd>
+            </div>
+            <div class="span6">
+                <dt>Cód. Automático:</dt>
+                <dd><?php echo $purchase->getPurchaseUId(); ?>&nbsp;</dd>
+                <dt>Data:</dt>
+                <dd><?php echo $purchase->getPurchaseDate(); ?>&nbsp;</dd>
+            </div>
+        </div>
+        <br>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="span1"><?php echo $this->translate('Cód.'); ?></th>
+                    <th><?php echo $this->translate('Descrição'); ?></th>
+                    <th class="span1"><?php echo $this->translate('Qtde'); ?></th>
+                    <th class="span2"><?php echo $this->translate('Preço Unit.'); ?></th>
+                    <th class="span2"><?php echo $this->translate('Subtotal'); ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (count($purchaseProducts)): ?>
+                    <?php $items = 0; ?>
+                    <?php foreach ($purchaseProducts as $detail): ?>
+                        <tr>
+                            <td><?php echo $detail->getProductId()->getProductId(); ?></td>
+                            <td><?php echo $detail->getProductId()->getProductName(); ?></td>
+                            <td><?php echo $detail->getPurchaseProductQuantity(); ?></td>
+                            <td><?php echo $this->currency($detail->getProductId()->getProductPrice()); ?></td>
+                            <td><?php echo $this->currency($detail->getPurchaseProductTotal()); ?></td>
+                            <?php $items += $detail->getPurchaseProductQuantity(); ?>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <?php echo $this->info('Nenhum produto foi incluído nessa venda.'); ?>
+                <?php endif; ?>
+                <tr class="info">
+                    <td>&nbsp;</td>
+                    <td class="lead" style="text-align: right;">Total:</td>
+                    <td class="lead"><?php echo (int) $items; ?></td>
+                    <td>&nbsp;</td>
+                    <td class="lead"><?php echo $this->currency($purchase->getPurchaseTotal()); ?></td>
+                </tr>
+            </tbody>
+        </table>
+    </dl>
+</div>

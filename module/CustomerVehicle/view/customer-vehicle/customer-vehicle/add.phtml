@@ -1,0 +1,73 @@
+<?php
+$title = $this->translate('Veículos do Cliente');
+$this->headTitle($title);
+$form = $this->form;
+$form->prepare();
+?>
+<legend><h2><i class="glyphicon glyphicon-building"></i> <?php echo $this->escapeHtml($title); ?></h2></legend>
+
+<div class="">
+    <div class="col-md-4">
+        <?php echo $this->form()->openTag($form); ?>
+        <?php $customerVehicle = $form->get('customerVehicle'); ?>
+        <div class="form-group">
+            <?php echo $this->formLabel($customerVehicle->get('customerId')); ?>
+            <?php echo $this->formSelect($customerVehicle->get('customerId')); ?>
+
+            <?php $vehicle = $customerVehicle->get('vehicle'); ?>
+
+            <?php echo $this->formLabel($vehicle->get('vehicleBrandId')); ?>
+            <?php echo $this->formSelect($vehicle->get('vehicleBrandId')); ?>
+
+            <?php echo $this->formLabel($vehicle->get('vehicleTypeId')); ?>
+            <?php echo $this->formSelect($vehicle->get('vehicleTypeId')); ?>
+
+            <?php echo $this->formLabel($vehicle->get('vehicleModelId')); ?>
+            <?php echo $this->formSelect($vehicle->get('vehicleModelId')); ?>
+
+            <?php echo $this->formLabel($vehicle->get('vehicleVersionId')); ?>
+            <?php echo $this->formSelect($vehicle->get('vehicleVersionId')); ?>
+            <div class='row'>
+                <div class="col-md-6">
+                    <?php echo $this->formLabel($vehicle->get('vehicleYear')); ?>
+                    <?php echo $this->formText($vehicle->get('vehicleYear')); ?>
+                </div>
+                <div class='col-md-6'>
+                    <?php echo $this->formLabel($vehicle->get('vehicleYearModel')); ?>
+                    <?php echo $this->formText($vehicle->get('vehicleYearModel')); ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <?php echo $this->formLabel($vehicle->get('vehiclePlate')); ?>
+                    <?php echo $this->formText($vehicle->get('vehiclePlate')); ?>
+                </div>
+                <div class='col-md-6'>
+                    <?php echo $this->formLabel($vehicle->get('vehicleColor')); ?>
+                    <?php echo $this->formText($vehicle->get('vehicleColor')); ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <?php echo $this->formLabel($vehicle->get('vehicleValue')); ?>
+                    <div class="input-group">
+                        <span class="input-group-addon">R$</span>
+                        <?php echo $this->formText($vehicle->get('vehicleValue')); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php echo $this->formHidden($form->get('security')); ?>
+        <div class="btn-group">
+            <?php echo $this->formElement($form->get('submit')); ?>
+            <?php echo $this->formElement($form->get('cancel')); ?>
+        </div>
+        <?php echo $this->form()->closeTag(); ?>
+    </div>
+    <div class="col-md-8">
+        <div class="customer-vehicle-list"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    customerVehicleList('<?php echo $this->customerId; ?>');
+</script>

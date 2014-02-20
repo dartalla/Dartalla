@@ -1,0 +1,67 @@
+<?php
+$title = $this->translate('Empresas');
+$this->headTitle($title);
+?>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="panel-title"><i class="glyphicon glyphicon-barcode"></i> <?php echo $this->escapeHtml($title); ?></div>
+            </div>
+            <div class="col-md-4">
+                <div class="btn-group btn-group-sm pull-right">
+                    <a class="btn btn-default" href="<?php echo $this->url('admin/company/add', array('action' => 'add')); ?>"> <i class="glyphicon glyphicon-plus"></i> <?php echo $this->translate('Novo'); ?></a>
+                </div> 
+            </div>
+        </div>
+    </div>
+    <table class="table table-condensed table-hover">
+        <thead>
+            <tr>
+                <th class="col-md-1"><?php echo $this->translate('CÓD'); ?></th>
+                <th class=""><?php echo $this->translate('CNPJ'); ?></th>
+                <th class=""><?php echo $this->translate('NOME FANTASIA'); ?></th>
+                <th class=""><?php echo $this->translate('TIPO'); ?></th>
+                <th class=""></th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (0 == count($this->company)): ?>
+                <tr>
+                    <td colspan="10" class="alert alert-info text-center"><?php echo $this->translate('Nenhum registro encontrado no banco de dados.') ?></td>
+                </tr>
+            <?php else: ?>
+                <?php foreach ($this->company as $company) : ?>
+                    <tr>
+                        <td><?php echo str_pad($company->getCompanyId(), 8, '0', STR_PAD_LEFT); ?></td>
+                        <td><?php echo $this->escapeHtml($this->cnpj($company->getCompanyCnpj())); ?></td>
+                        <td><?php echo $this->escapeHtml($company->getCompanyFancyName()); ?></td>
+                        <td><?php echo ($company->getCompanyIsMaster()) ? "<span class=\"label label-default\">MATRIZ</span>" : "<span class=\"label label-default\">FILIAL</span>"; ?></td>
+                        <td>
+                            <div class="btn-group btn-group-xs pull-right">
+                                <a class="btn btn-default" href="<?php echo $this->url('admin/company/view', array('action' => 'view', 'id' => $company->getCompanyId()))
+                    ?>"><i class="glyphicon glyphicon-folder-open"></i></a>
+                                <a class="btn btn-default" href="<?php
+                                echo $this->url('admin/company/edit', array('action' => 'edit',
+                                    'id' => $company->getCompanyId()))
+                                ?>"><i class="glyphicon glyphicon-edit"></i></a>
+                                <a class="btn btn-default" href="<?php echo $this->url('admin/company/delete', array('action' => 'delete', 'id' => $company->getCompanyId()))
+                                ?>"><i class="glyphicon glyphicon-remove"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </tbody>
+    </table>
+    <div class="panel-footer">
+        <?php
+        $paginationInfo = $this->placeholder('pagination');
+        if (!isset($paginationInfo->route)) {
+            $paginationInfo->route = 'admin/company';
+            $paginationInfo->params = array();
+        }
+        ?>
+        <?php echo $this->paginationControl($this->company, 'Sliding', 'layout/pagination'); ?>
+    </div>
+</div>

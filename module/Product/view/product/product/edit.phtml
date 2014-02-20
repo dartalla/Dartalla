@@ -1,0 +1,226 @@
+<?php
+$title = $this->translate('Editar Produto');
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('admin/product/edit', array('id' => $this->id)));
+$form->prepare();
+?>
+<?php echo $this->form()->openTag($form); ?>
+<div class="tabbable">
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#tab1" data-toggle="tab"><?php echo $this->translate('Dados do Produto'); ?></a>
+        </li>
+        <li>
+            <a href="#tab2" data-toggle="tab"><?php echo $this->translate('Outras Informações'); ?></a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+            <div class="span7">
+                <?php $product = $form->get('product'); ?>
+                <?php echo $this->formHidden($product->get('productId')); ?>
+                <?php echo $this->formHidden($product->get('companyId')->setValue($this->companyAuth()->getCompanyId())); ?>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Identificação'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formText($product->get('productUid')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Código de Barras'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formText($product->get('productBarcode')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Descrição do Produto'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formText($product->get('productName')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Marca'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formText($product->get('productBrand')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Modelo'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formText($product->get('productModel')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Categoria'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formSelect($product->get('categoryId')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Observações'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formTextArea($product->get('productNotes')); ?>
+                    </div>
+                </div>
+            </div>
+            <!-- DIVISÃO DAS COLUNAS -->
+            <div class="span6">
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Unidade'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formSelect($product->get('unitId')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Custo'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <div class="add-on">R$</div>
+                            <?php echo $this->formText($product->get('productCost')); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Margem de Lucro'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <div class="input-append">
+                            <?php echo $this->formText($product->get('productMarkup')); ?>
+                            <span class="add-on">%</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Preço de Venda'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <div class="add-on">R$</div>
+                            <?php echo $this->formText($product->get('productPrice')); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Estoque Mínimo'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formNumber($product->get('productMinimumStock')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Estoque Ideal'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formNumber($product->get('productIdealStock')); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tab2">
+            <div class="span7">
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Fornecedor'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formSelect($product->get('supplierId')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Margem Atacado'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <div class="add-on">%</div>
+                            <?php echo $this->formText($product->get('productWholesaleMarkup')); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Preço Atacado'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <div class="add-on">R$</div>
+                            <?php echo $this->formText($product->get('productWholesalePrice')); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Margem Promocional'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <div class="add-on">%</div>
+                            <?php echo $this->formText($product->get('productPromotionalMarkup')); ?>
+                        </div>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Preço Promocional'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <div class="add-on">R$</div>
+                            <?php echo $this->formText($product->get('productPromotionalPrice')); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="span6">
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Produto em Promoção'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formCheckbox($product->get('productPromotion')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Produto Ativo'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formCheckbox($product->get('productActive')); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-actions">
+    <?php echo $this->formHidden($form->get('security')); ?>
+    <?php echo $this->formElement($form->get('submit')); ?>
+    <?php echo $this->formElement($form->get('cancel')); ?>
+</div>
+<?php echo $this->form()->closeTag(); ?>

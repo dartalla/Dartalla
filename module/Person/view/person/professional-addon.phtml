@@ -1,0 +1,41 @@
+<legend>Dados Profissionais Adicionais </legend>
+<?php $professionalAddon = $this->professionalAddonForm; ?>
+<div class="form-group">
+    <?php echo $this->formHidden($professionalAddon->get('professionalAddonId')); ?>
+    <div class="row">
+        <div class="col-md-4">
+            <?php echo $this->formLabel($professionalAddon->get('professionalAddonPreviousCompany')); ?>
+            <?php echo $this->formText($professionalAddon->get('professionalAddonPreviousCompany')); ?>
+        </div>
+        <div class="col-md-2">
+            <?php echo $this->formLabel($professionalAddon->get('professionalAddonPreviousPhone')); ?>
+            <div class="input-group">
+                <span class="input-group-addon">+55</span>
+                <?php echo $this->formText($professionalAddon->get('professionalAddonPreviousPhone')); ?>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <?php echo $this->formLabel($professionalAddon->get('professionalAddonPreviousAdmission')); ?>
+            <?php echo $this->formText($professionalAddon->get('professionalAddonPreviousAdmission')); ?>
+        </div>
+        <div class="col-md-2">
+            <?php echo $this->formLabel($professionalAddon->get('professionalAddonPreviousDemission')); ?>
+            <?php echo $this->formText($professionalAddon->get('professionalAddonPreviousDemission')); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <?php echo $this->formLabel($professionalAddon->get('professionalAddonPreviousOffice')); ?>
+            <?php echo $this->formText($professionalAddon->get('professionalAddonPreviousOffice')); ?>
+        </div>
+        <div class="col-md-2">
+            <?php echo $this->formLabel($professionalAddon->get('professionalAddonPreviousSalary')); ?>
+            <div class="input-group">
+                <span class="input-group-addon">R$</span>
+                <?php echo $this->formText($professionalAddon->get('professionalAddonPreviousSalary')); ?>
+            </div>
+        </div>
+    </div>
+</div>

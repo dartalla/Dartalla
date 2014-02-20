@@ -1,0 +1,17 @@
+<legend><?php echo $this->translate('Dados Gerais') ?></legend>
+<?php $person = $this->person; ?>
+<?php echo $this->formRow($person->get('personId')); ?>
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-6">
+            <?php echo $this->formLabel($person->get('personName')); ?>
+            <?php echo $this->formText($person->get('personName')); ?>
+        </div>
+    </div>
+
+    <?php $address = $person->get('address') ?>
+    <?php echo $this->addressForm($address); ?>
+
+    <?php $contact = $person->get('contact') ?>
+    <?php echo $this->contactForm($contact); ?>
+</div>

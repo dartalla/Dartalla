@@ -1,0 +1,82 @@
+<?php
+$title = $this->translate('Novo Avalista / Cônjuge de ' . $this->customer->getCustomerName());
+$this->headTitle($title);
+$form = $this->form;
+$form->setAttribute('action', $this->url('admin/sponsor/add', array(
+            'action' => 'add',
+            'type' => $this->personType,
+            'id' => $this->customer->getCustomerId())));
+$form->prepare();
+?>
+<h2 class="container-header"><i class="glyphicon glyphicon-user"></i> <?php echo $this->escapeHtml($title); ?></h2>
+<?php echo $this->form()->openTag($form); ?>
+<?php $sponsor = $form->get('sponsor'); ?>
+<div class="tabbable">
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#tab1" data-toggle="tab"><?php echo $this->translate('Dados Gerais'); ?></a>
+        </li>
+        <li>
+            <a href="#tab2" data-toggle="tab"><?php echo $this->translate('Dados Pessoais'); ?></a>
+        </li>
+        <?php if ($this->personType == base64_encode(0)): ?>
+            <li>
+                <a href="#tab3" data-toggle="tab"><?php echo $this->translate('Dados Profissionais'); ?></a>
+            </li>
+            <li>
+                <a href="#tab4" data-toggle="tab"><?php echo $this->translate('Dados Adicionais'); ?></a>
+            </li>
+        <?php endif; ?>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+            <?php $person = $sponsor->get('person'); ?>
+            <?php echo $this->personForm($person); ?>
+        </div>
+        <?php if ($this->personType == base64_encode(1)): ?>
+            <div class="tab-pane" id="tab2">
+                <?php $legal = $person->get('legal'); ?>
+                <?php echo $this->legalForm($legal); ?>
+            </div>
+        <?php elseif ($this->personType == base64_encode(0)): ?>
+            <div class="tab-pane" id="tab2">
+                <?php $individual = $person->get('individual'); ?>
+                <?php echo $this->individualForm($individual); ?>
+            </div>
+            <div class="tab-pane" id="tab3">
+                <?php $professional = $individual->get('professional'); ?>
+                <?php echo $this->professionalForm($professional); ?>
+            </div>
+            <div class="tab-pane" id="tab4">
+                <?php $bankAccount = $sponsor->get('bankAccount'); ?>
+                <?php echo $this->bankAccountForm($bankAccount); ?>
+
+                <legend>Dados Residenciais</legend>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <?php echo $this->formLabel($sponsor->get('sponsorResidenceType')); ?>
+                            <?php echo $this->formText($sponsor->get('sponsorResidenceType')); ?>
+                        </div>
+                        <div class="col-md-2">
+                            <?php echo $this->formLabel($sponsor->get('sponsorResidenceTime')); ?>
+                            <?php echo $this->formText($sponsor->get('sponsorResidenceTime')); ?>
+                        </div>
+                        <div class="col-md-2">
+                            <?php echo $this->formLabel($sponsor->get('sponsorResidenceRentValue')); ?>
+                            <div class="input-group">
+                                <span class="input-group-addon">R$</span>
+                                <?php echo $this->formText($sponsor->get('sponsorResidenceRentValue')); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endif; ?>
+    </div>
+</div>
+<?php echo $this->formRow($form->get('security')); ?>
+<div class="btn-group">
+    <?php echo $this->formSubmit($form->get('submit')); ?>
+    <?php echo $this->formRow($form->get('cancel')); ?>
+</div>

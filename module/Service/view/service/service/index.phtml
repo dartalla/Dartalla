@@ -1,0 +1,63 @@
+<?php
+    $title = $this->translate('Serviço');
+    $this->headTitle($title);
+?>
+<h1 class="row-fluid">
+    <div class="span6">
+        <?php echo $this->escapeHtml($title); ?>
+    </div>
+    <div class="pull-right">
+        <div class="btn-group">
+            <a class="btn" href="<?php echo $this->url('admin/service/add', array('action'=>'add'));?>"> <i class="icon-plus"></i> <?php echo $this->translate('Novo'); ?></a>
+        </div>
+    </div> 
+</h1>
+
+<div class="widget widget-table">
+    <div class="widget-header">
+        <i class="manager-icon-nameplate"></i>
+        <h3>Serviços</h3>
+    </div>
+    <div class="widget-content">
+        <table class="table table-bordered">
+            <tr>
+                <th class=""><?php echo $this->translate('Serviço');?></th>
+                <th class="span2"><?php echo $this->translate('Preço');?></th>
+                <th class="span2"><?php echo $this->translate('Preço Prom.');?></th>
+                <th class="span1"><?php echo $this->translate('Status');?></th>
+                <th class="span1"><?php echo $this->translate('Ações');?></th>
+            </tr>
+            <?php if (0 == count($this->service)):?>
+            <tr>
+                <td colspan="3"><?php echo $this->translate('Não há registros no banco de dados.')?></td>
+            </tr>
+            <?php else: ?>
+            <?php foreach ($this->service as $service) : ?>
+            <tr>
+                <td><?php echo $this->escapeHtml($service->getServiceName());?></td>
+                <td><?php echo $this->currency($service->getServicePrice());?></td>
+                <td><?php echo $this->currency($service->getServicePromotionalPrice());?></td>
+                <td><?php echo $this->escapeHtml(($service->getServiceActive()) ? 'ATIVO' : 'INATIVO');?></td>
+                <td>
+                    <div class="btn-group">
+                        <a class="btn btn-mini" href="<?php echo $this->url('admin/service/edit',
+                                array('action'=>'edit', 'id' => $service->getServiceId()))?>"><i class="icon-edit"></i></a>
+                        <a class="btn btn-mini" href="<?php echo $this->url('admin/service/delete',
+                            array('action'=>'delete', 'id' => $service->getServiceId()))?>"><i class="icon-remove"></i></a>
+                    </div>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+                <?php endif;?>
+            </tbody>
+        </table>
+    </div>
+    <?php 
+        $paginationInfo = $this->placeholder('pagination');
+        if (!isset($paginationInfo->route)) {
+            $paginationInfo->route  = 'admin/service';
+            $paginationInfo->params = array();
+        }
+    ?>
+    <?php echo $this->paginationControl($this->service, 'Sliding', 'layout/pagination'); ?>
+</div>

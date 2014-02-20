@@ -1,0 +1,31 @@
+<legend><?php echo $this->translate('Dados Bancários') ?></legend>
+<?php $bankAccount = $this->bankAccount; ?>
+<?php echo $this->formRow($bankAccount->get('bankAccountId')); ?>
+<div class="form-group">
+    <div class="row">
+        <div class="col-md-4">
+            <?php echo $this->formLabel($bankAccount->get('bankAccountType')); ?>
+            <?php echo $this->formSelect($bankAccount->get('bankAccountType')); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <?php echo $this->formLabel($bankAccount->get('bankAccountBank')); ?>
+            <?php echo $this->formText($bankAccount->get('bankAccountBank')); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <?php echo $this->formLabel($bankAccount->get('bankAccountAgency')); ?>
+            <?php echo $this->formText($bankAccount->get('bankAccountAgency')); ?>
+        </div>
+        <div class="col-md-2">
+            <?php echo $this->formLabel($bankAccount->get('bankAccountAccount')); ?>
+            <?php echo $this->formText($bankAccount->get('bankAccountAccount')); ?>
+        </div>
+        <div class="col-md-2">
+            <?php echo $this->formLabel($bankAccount->get('bankAccountSince')); ?>
+            <?php echo $this->formText($bankAccount->get('bankAccountSince')); ?>
+        </div>
+    </div>
+</div>

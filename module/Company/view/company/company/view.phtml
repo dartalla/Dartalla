@@ -1,0 +1,71 @@
+<?php
+$company = $this->company;
+$address = $company->getAddress();
+$contact = $company->getContact();
+$title = 'Detalhes de ' . $company->getCompanyName();
+$this->headTitle($title);
+?>
+<div>
+    <h4>Cliente</h4>
+    <div class="row">
+        <div class="col-md-6">
+            <blockquote>
+                <p class="text-danger">
+                    <?php echo $company->getCompanyName(); ?>
+                    <?php echo ($company->getCompanySelf()) ? " - FILIAL" : " - MATRIZ"; ?>
+                </p>
+            </blockquote>
+        </div>
+        <div class="pull-right">
+            <div class="btn-group">
+                <a class="btn btn-default" href="<?php echo $this->url('admin/company/add', array('action' => 'add')); ?>"> <i class="glyphicon glyphicon-plus"></i> <?php echo $this->translate('Novo'); ?></a>
+                <a class="btn btn-default" href="<?php echo $this->url('admin/company/edit', array('action' => 'edit', 'id' => $company->getCompanyId())); ?>"><i class="glyphicon glyphicon-edit"></i> <?php echo $this->translate('Editar'); ?></a>
+                <a class="btn btn-default" href="<?php echo $this->url('admin/company/delete', array('action' => 'delete', 'id' => $company->getCompanyId())); ?>"><i class="glyphicon glyphicon-remove"></i> <?php echo $this->translate('Apagar'); ?></a>
+                <a class="btn btn-default" href="<?php echo $this->url('admin/company'); ?>"><i class="glyphicon glyphicon-chevron-left"></i> <?php echo $this->translate('Voltar'); ?></a>
+            </div>
+        </div>
+    </div>
+</div>
+<dl class="dl-horizontal">
+    <legend>Dados da Empresa</legend>
+    <dt>Razão Social:</dt>
+    <dd><?php echo $company->getCompanyName(); ?>&nbsp;</dd>
+    <dt>Nome Fantasia:</dt>
+    <dd><?php echo $company->getCompanyFancyName(); ?>&nbsp;</dd>
+    <dt>CNPJ:</dt>
+    <dd><?php echo $this->cnpj($company->getCompanyCnpj()); ?>&nbsp;</dd>
+    <dt>Inscrição Estadual:</dt>
+    <dd><?php echo $company->getCompanySubscription(); ?>&nbsp;</dd>
+    <dt>Representante:</dt>
+    <dd><?php echo $company->getCompanyRepresentativeName(); ?>&nbsp;</dd>
+    <dt>Telefone do Rep.:</dt>
+    <dd><?php echo $this->phone($company->getCompanyRepresentativePhone()); ?>&nbsp;</dd>
+
+    <legend>Endereço</legend>
+    <dt>Endereço:</dt>
+    <dd><?php echo $address->getAddressName(); ?>, nº <?php echo $address->getAddressNumber(); ?></dd>
+    <dt>Complemento:</dt>
+    <dd><?php echo $address->getAddressComplement(); ?>&nbsp;</dd>
+    <dt>Bairro:</dt>
+    <dd><?php echo $address->getAddressQuarter(); ?>&nbsp;</dd>
+    <dt>CEP:</dt>
+    <dd><?php echo $this->cep($address->getAddressPostalCode()); ?>&nbsp;</dd>
+    <dt>Cidade:</dt>
+    <dd><?php echo $address->getAddressCity(); ?>&nbsp;</dd>
+    <dt>Estado:</dt>
+    <dd><?php echo $address->getAddressState(); ?>&nbsp;</dd>
+    <dt>País:</dt>
+    <dd><?php echo $address->getAddressCountry(); ?>&nbsp;</dd>
+
+    <legend>Contato</legend>
+    <dt>Email:</dt>
+    <dd><?php echo $contact->getContactEmail(); ?>&nbsp;</dd>
+    <dt>Website:</dt>
+    <dd><?php echo $contact->getContactWebsite(); ?>&nbsp;</dd>
+    <dt>Telefone:</dt>
+    <dd><?php echo $this->phone($contact->getContactPhone()); ?>&nbsp;</dd>
+    <dt>Celular:</dt>
+    <dd><?php echo $this->phone($contact->getContactCell()); ?>&nbsp;</dd>
+    <dt>FAX:</dt>
+    <dd><?php echo $this->phone($contact->getContactFax()); ?>&nbsp;</dd>
+</dl>

@@ -1,0 +1,81 @@
+<legend><?php echo $this->translate('Dados Profissionais') ?></legend>
+<?php $professional = $this->professional; ?>
+<div class="form-group">
+    <?php echo $this->formHidden($professional->get('professionalId')); ?>
+    <div class="row">
+        <div class="col-md-4">
+            <?php echo $this->formLabel($professional->get('professionalEnterpriseName')); ?>
+            <?php echo $this->formText($professional->get('professionalEnterpriseName')); ?>
+        </div>
+        <div class="col-md-2">
+            <?php echo $this->formLabel($professional->get('professionalEnterpriseCnpj')); ?>
+            <?php echo $this->formText($professional->get('professionalEnterpriseCnpj')); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <?php echo $this->formLabel($professional->get('business')); ?>
+            <?php echo $this->formSelect($professional->get('business')); ?>
+        </div>
+        <div class="col-md-2">
+            <?php echo $this->formLabel($professional->get('professionalEnterpriseFoundationDate')); ?>
+            <?php echo $this->formText($professional->get('professionalEnterpriseFoundationDate')); ?>
+        </div>
+    </div>
+    
+    <?php $address = $professional->get('address') ?>
+    <?php echo $this->addressForm($address); ?>
+
+    <?php $contact = $professional->get('contact') ?>
+    <?php echo $this->contactForm($contact); ?>
+    
+    <div class="row">
+        <div class="col-md-2">
+            <?php echo $this->formLabel($professional->get('professionalEnterpriseParticipation')); ?>
+            <div class="input-group">
+                <?php echo $this->formText($professional->get('professionalEnterpriseParticipation')); ?>
+                <span class="input-group-addon">%</span>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <?php echo $this->formLabel($professional->get('professionalEnterprisePartnerCount')); ?>
+            <?php echo $this->formText($professional->get('professionalEnterprisePartnerCount')); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            <?php echo $this->formLabel($professional->get('professionalAdmissionDate')); ?>
+            <?php echo $this->formText($professional->get('professionalAdmissionDate')); ?>
+        </div>
+        <div class="col-md-2">
+            <?php echo $this->formLabel($professional->get('professionalSalary')); ?>
+            <div class="input-group">
+                <span class="input-group-addon">R$</span>
+                <?php echo $this->formText($professional->get('professionalSalary')); ?>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <?php echo $this->formLabel($professional->get('professionalOtherRevenue')); ?>
+            <div class="input-group">
+                <span class="input-group-addon">R$</span>
+                <?php echo $this->formText($professional->get('professionalOtherRevenue')); ?>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <?php echo $this->formLabel($professional->get('professionalBenefitNumber')); ?>
+            <?php echo $this->formText($professional->get('professionalBenefitNumber')); ?>
+        </div>
+        <div class="col-md-3">
+            <?php echo $this->formLabel($professional->get('professionalOffice')); ?>
+            <?php echo $this->formText($professional->get('professionalOffice')); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <?php echo $this->formLabel($professional->get('professionalNotes')); ?>
+            <?php echo $this->formTextarea($professional->get('professionalNotes')); ?>
+        </div>
+    </div>
+</div>

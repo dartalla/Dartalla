@@ -1,0 +1,101 @@
+<?php
+$title = $this->translate('Editar Serviço');
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('admin/service/edit', array('id' => $this->id)));
+$form->prepare();
+?>
+<div class="tabbable">
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#tab1" data-toggle="tab"><?php echo $this->translate('Dados do Serviço'); ?></a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+            <?php echo $this->form()->openTag($form); ?>
+            <?php $service = $form->get('service'); ?>
+            <?php echo $this->formHidden($service->get('serviceId')); ?>
+            <?php echo $this->formHidden($service->get('companyId')->setValue($this->companyAuth()->getCompanyId())); ?>
+            <div class="control-group">
+                <div class="control-label">
+                    <label><?php echo $this->translate('Nome do Serviço'); ?></label>
+                </div>
+                <div class="controls">
+                    <?php echo $this->formText($service->get('serviceName')); ?>
+                </div>
+            </div>
+             <div class="control-group">
+                <div class="control-label">
+                    <label><?php echo $this->translate('Categoria'); ?></label>
+                </div>
+                <div class="controls">
+                    <?php echo $this->formSelect($service->get('categoryId')); ?>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="control-label">
+                    <label><?php echo $this->translate('Preço'); ?></label>
+                </div>
+                <div class="controls">
+                    <div class="input-prepend">
+                        <span class="add-on">R$</span>
+                        <?php echo $this->formText($service->get('servicePrice')); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="control-label">
+                    <label><?php echo $this->translate('Preço Promocional'); ?></label>
+                </div>
+                <div class="controls">
+                    <div class="input-prepend">
+                        <span class="add-on">R$</span>
+                        <?php echo $this->formText($service->get('servicePromotionalPrice')); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="control-label">
+                    <label><?php echo $this->translate('Unidade'); ?></label>
+                </div>
+                <div class="controls">
+                    <?php echo $this->formSelect($service->get('unitId')); ?>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="control-label">
+                    <label><?php echo $this->translate('Colocar em Promoção'); ?></label>
+                </div>
+                <div class="controls">
+                    <?php echo $this->formCheckbox($service->get('servicePromotional')); ?>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="control-label">
+                    <label><?php echo $this->translate('Serviço Ativo'); ?></label>
+                </div>
+                <div class="controls">
+                    <?php echo $this->formCheckbox($service->get('serviceActive')); ?>
+                </div>
+            </div>
+            <div class="control-group">
+                <div class="control-label">
+                    <label><?php echo $this->translate('Observações'); ?></label>
+                </div>
+                <div class="controls">
+                    <?php echo $this->formTextArea($service->get('serviceNotes')); ?>
+                </div>
+            </div>
+            <div class="form-actions">
+                <?php echo $this->formHidden($form->get('security')); ?>
+                <?php echo $this->formElement($form->get('submit')); ?>
+                <?php echo $this->formElement($form->get('cancel')); ?>
+            </div>
+            <?php echo $this->form()->closeTag(); ?>
+        </div>
+    </div>
+</div>

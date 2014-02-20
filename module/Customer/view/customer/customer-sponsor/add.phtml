@@ -1,0 +1,40 @@
+<?php
+$title = $this->translate('Referências do Cliente');
+$this->headTitle($title);
+$form = $this->form;
+$form->prepare();
+?>
+<legend><h2><i class="glyphicon glyphicon-thumbs-up"></i> <?php echo $this->escapeHtml($title); ?></h2></legend>
+<div class="row">
+    <div class="col-md-4">
+        <?php echo $this->form()->openTag($form); ?>
+        <?php $customerSponsor = $form->get('customerSponsor'); ?>
+        <div class="form-group">
+            <?php echo $this->formLabel($customerSponsor->get('customerId')); ?>
+            <?php echo $this->formSelect($customerSponsor->get('customerId')); ?>
+            
+            <?php $sponsor = $customerSponsor->get('sponsor'); ?>
+            
+            <?php echo $this->formLabel($sponsor->get('sponsorType')); ?>
+            <?php echo $this->formSelect($sponsor->get('sponsorType')); ?>
+
+            <?php echo $this->formLabel($sponsor->get('sponsorName')); ?>
+            <?php echo $this->formText($sponsor->get('sponsorName')); ?>
+
+            <?php echo $this->formLabel($sponsor->get('sponsorPhone')); ?>
+            <?php echo $this->formText($sponsor->get('sponsorPhone')); ?>
+        </div>
+        <?php echo $this->formHidden($form->get('security')); ?>
+        <div class="btn-group">
+            <?php echo $this->formElement($form->get('submit')); ?>
+            <?php echo $this->formElement($form->get('cancel')); ?>
+        </div>
+        <?php echo $this->form()->closeTag(); ?>
+    </div>
+    <div class="col-md-8">
+        <div class="customer-sponsor-list"></div>
+    </div>
+</div>
+<script type="text/javascript">
+    customerSponsorList('<?php echo $this->customerId?>');
+</script>

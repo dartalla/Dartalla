@@ -1,0 +1,63 @@
+<?php
+$title = $this->translate('Produto');
+$this->headTitle($title);
+?>
+<h1 class="row-fluid">
+    <div class="span6">
+        <?php echo $this->escapeHtml($title); ?>
+    </div>
+    <div class="pull-right">
+        <div class="btn-group">
+            <a class="btn" href="<?php echo $this->url('admin/product/add', array('action' => 'add')); ?>"> <i class="icon-plus"></i> <?php echo $this->translate('Novo'); ?></a>
+            <a class="btn" href="<?php echo $this->url('admin/purchase/add', array('action' => 'add')); ?>"> <i class="manager-icon-shopping-cart"></i> <?php echo $this->translate('Comprar'); ?></a>
+        </div>
+    </div> 
+</h1>
+
+<div class="widget widget-table">
+    <div class="widget-header">
+        <i class="manager-icon-nameplate"></i>
+        <h3>Produtos</h3>
+    </div>
+    <div class="widget-content">
+        <table class="table table-bordered">
+            <tr>
+                <th class=""><?php echo $this->translate('Produto'); ?></th>
+                <th class="span2"><?php echo $this->translate('Em Estoque'); ?></th>
+                <th class="span2"><?php echo $this->translate('Preço'); ?></th>
+                <th class="span1"><?php echo $this->translate('Status'); ?></th>
+                <th class="span1"><?php echo $this->translate('Ações'); ?></th>
+            </tr>
+            <?php if (0 == count($this->product)): ?>
+                <tr>
+                    <td colspan="3"><?php echo $this->translate('Não há registros no banco de dados.') ?></td>
+                </tr>
+            <?php else: ?>
+                <?php foreach ($this->product as $product) : ?>
+                    <?php $productStatus = $this->productStatus($product); ?>
+                    <tr class="<?php echo $productStatus['class']; ?>">
+                        <td><?php echo $this->escapeHtml($product->getProductName()); ?></td>
+                        <td><?php echo $this->escapeHtml($product->getProductStock() .' '. $product->getUnitId()->getUnitSymbol()); ?></td>
+                        <td><?php echo $this->currency($product->getProductPrice())?></td>
+                        <td><?php echo $productStatus['status']; ?></td>
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-mini btn-warning" href="<?php echo $this->url('admin/product/edit', array('action' => 'edit', 'id' => $product->getProductId())) ?>"><i class="icon-edit"></i></a>
+                                <a class="btn btn-mini btn-danger" href="<?php echo $this->url('admin/product/delete', array('action' => 'delete', 'id' => $product->getProductId())) ?>"><i class="icon-remove"></i></a>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+    <?php
+    $paginationInfo = $this->placeholder('pagination');
+    if (!isset($paginationInfo->route)) {
+        $paginationInfo->route = 'admin/product';
+        $paginationInfo->params = array();
+    }
+    ?>
+    <?php echo $this->paginationControl($this->product, 'Sliding', 'layout/pagination'); ?>
+</div>

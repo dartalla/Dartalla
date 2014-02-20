@@ -1,0 +1,27 @@
+<?php
+$title = $this->translate('Editar Unidade');
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('admin/unit/edit', array('id' => $this->id)));
+$form->prepare();
+?>
+<?php echo $this->form()->openTag($form); ?>
+<div class="controls">
+    <?php $unit = $form->get('unit'); ?>
+    <?php echo $this->formHidden($unit->get('unitId')); ?>
+    <div class="controls-row">
+        <?php echo $this->formText($unit->get('unitSymbol')); ?>
+    </div>
+    <div class="controls-row">
+        <?php echo $this->formText($unit->get('unitName')); ?>
+    </div>
+</div>
+<div class="form-actions">
+    <?php echo $this->formHidden($form->get('security')); ?>
+    <?php echo $this->formElement($form->get('submit')); ?>
+    <?php echo $this->formElement($form->get('cancel')); ?>
+</div>
+<?php echo $this->form()->closeTag(); ?>

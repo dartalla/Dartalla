@@ -1,0 +1,55 @@
+<?php
+$title = $this->translate('Editar Dados Adicionais');
+$this->headTitle($title);
+$form = $this->form;
+$form->setAttribute('action', $this->url('admin/customer-vehicle/edit', array('id' => $this->id)));
+$form->prepare();
+?>
+<h2><i class="glyphicon glyphicon-money"></i> <?php echo $this->escapeHtml($title); ?></h2>
+<?php echo $this->form()->openTag($form); ?>
+<?php $customerVehicle = $form->get('customerVehicle'); ?>
+<div class="form-group">
+    <?php echo $this->formHidden($customerVehicle->get('customerVehicleId')); ?>
+    <div class="row">
+        <div class="col-md-1">
+            <?php echo $this->formLabel($customerVehicle->get('customerVehiclePreviousCompany')); ?>
+            <?php echo $this->formText($customerVehicle->get('customerVehiclePreviousCompany')); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <?php echo $this->formLabel($customerVehicle->get('customerVehiclePreviousPhone')); ?>
+            <?php echo $this->formText($customerVehicle->get('customerVehiclePreviousPhone')); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <?php echo $this->formLabel($customerVehicle->get('customerVehiclePreviousAdmission')); ?>
+            <?php echo $this->formText($customerVehicle->get('customerVehiclePreviousAdmission')); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <?php echo $this->formLabel($customerVehicle->get('customerVehiclePreviousDemission')); ?>
+            <?php echo $this->formText($customerVehicle->get('customerVehiclePreviousDemission')); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <?php echo $this->formLabel($customerVehicle->get('customerVehiclePreviousOffice')); ?>
+            <?php echo $this->formText($customerVehicle->get('customerVehiclePreviousOffice')); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <?php echo $this->formLabel($customerVehicle->get('customerVehiclePreviousSalary')); ?>
+            <?php echo $this->formText($customerVehicle->get('customerVehiclePreviousSalary')); ?>
+        </div>
+    </div>
+</div>
+<div>
+    <?php echo $this->formHidden($form->get('security')); ?>
+    <?php echo $this->formElement($form->get('submit')); ?>
+    <?php echo $this->formElement($form->get('cancel')); ?>
+</div>
+<?php echo $this->form()->closeTag(); ?>

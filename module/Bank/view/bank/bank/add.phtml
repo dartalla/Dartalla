@@ -1,0 +1,36 @@
+<?php
+$title = $this->translate('Novo Banco');
+$this->headTitle($title);
+$form = $this->form;
+$form->prepare();
+?>
+<?php echo $this->form()->openTag($form); ?>
+<?php $bank = $form->get('bank'); ?>
+<legend><i class="glyphicon glyphicon-usd"></i> <?php echo $this->escapeHtml($title); ?></legend>
+<div class="form-group">
+    <?php echo $this->formHidden($bank->get('bankId')); ?>
+    <div class="row">
+        <div class="col-md-1">
+            <?php echo $this->formLabel($bank->get('bankCode')); ?>
+            <?php echo $this->formText($bank->get('bankCode')); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <?php echo $this->formLabel($bank->get('bankName')); ?>
+            <?php echo $this->formText($bank->get('bankName')); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <?php echo $this->formLabel($bank->get('bankWebsite')); ?>
+            <?php echo $this->formText($bank->get('bankWebsite')); ?>
+        </div>
+    </div>
+</div>
+<?php echo $this->formHidden($form->get('security')); ?>
+<div class="btn-group">
+    <?php echo $this->formElement($form->get('submit')); ?>
+    <?php echo $this->formElement($form->get('cancel')); ?>
+</div>
+<?php echo $this->form()->closeTag(); ?>

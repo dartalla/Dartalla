@@ -1,0 +1,20 @@
+.container {
+    width: 100%;
+}
+
+dt {
+    padding: 5px 0;
+}
+
+dd {
+    border: #ddd dashed thin;
+    line-height: 1.5em;
+    margin: 0px 0 2px 0;
+    padding: 2px 10px;
+    background-color: #f9f9f9;
+}
+
+.ui-datepicker {
+    width: 19em;
+    font-size: 12px;
+}

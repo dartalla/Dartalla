@@ -1,0 +1,77 @@
+<?php
+$title = $this->translate('Vendas');
+$this->headTitle($title);
+?>
+<h1 class="row-fluid">
+    <div class="span6">
+        <?php echo $this->escapeHtml($title); ?>
+    </div>
+    <div class="pull-right">
+        <div class="btn-group">
+            <a class="btn" href="<?php echo $this->url('admin/business/sale/add', array('action' => 'add')); ?>"> <i class="icon-plus"></i> <?php echo $this->translate('Novo'); ?></a>
+        </div>
+    </div> 
+</h1>
+<div class="row-fluid">
+    <div class="span2">
+        <div class="widget widget-table">
+            <div class="widget-header">
+                <h3>Total a Receber</h3>
+            </div>
+            <div class="widget-content" dir="rtl">
+                <h3 class="text-success"><?php echo $this->currency($this->total['total']); ?></h3>
+            </div>
+        </div>
+    </div>
+
+    <div class="span10">
+        <div class="widget widget-table">
+            <div class="widget-header">
+                <i class="manager-icon-nameplate"></i>
+                <h3>Vendas</h3>
+            </div>
+            <div class="widget-content">
+                <table class="table table-bordered">
+                    <tr>
+                        <th class="span1"><?php echo $this->translate('#'); ?></th>
+                        <th class="span1"><?php echo $this->translate('Código'); ?></th>
+                        <th class=""><?php echo $this->translate('Cliente'); ?></th>
+                        <th class="span2"><?php echo $this->translate('Valor'); ?></th>
+                        <th class="span1"><?php echo $this->translate('Ações'); ?></th>
+                    </tr>
+                    <?php if (0 == count($this->sale)): ?>
+                        <tr>
+                            <td colspan="10"><?php echo $this->info($this->translate('Não há registros no banco de dados.')); ?></td>
+                        </tr>
+                    <?php else: ?>
+                        <?php foreach ($this->sale as $sale) : ?>
+                            <tr>
+                                <td><?php echo $this->escapeHtml($sale->getSaleId()); ?></td>
+                                <td><?php echo $this->escapeHtml($sale->getOrder()->getOrderUid()); ?></td>
+                                <td><?php echo $this->escapeHtml($sale->getOrder()->getCustomerId()->getCustomerName()); ?></td>
+                                <td><?php echo $this->currency($sale->getOrder()->getOrderTotal()); ?></td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a class="btn btn-mini btn-info" href="<?php echo $this->url('admin/business/sale/view', array('action' => 'view', 'id' => $sale->getSaleId()))
+                            ?>"><i class="icon-search"></i></a>
+                                        <a class="btn btn-mini btn-danger" href="<?php echo $this->url('admin/business/sale/delete', array('action' => 'delete', 'id' => $sale->getSaleId()))
+                            ?>"><i class="icon-remove"></i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+            <?php
+            $paginationInfo = $this->placeholder('pagination');
+            if (!isset($paginationInfo->route)) {
+                $paginationInfo->route = 'admin/business/sale';
+                $paginationInfo->params = array();
+            }
+            ?>
+            <?php echo $this->paginationControl($this->sale, 'Sliding', 'layout/pagination'); ?>
+        </div>
+    </div>
+</div>

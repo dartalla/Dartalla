@@ -1,0 +1,147 @@
+<?php
+$title = $this->translate('Adicionar Conta a Receber');
+$this->headTitle($title);
+$form = $this->form;
+$form->prepare();
+?>
+<h1 class="container-header"><i class="glyphicon glyphicon-arrow-down"></i> <?php echo $this->escapeHtml($title); ?></h1>
+<?php echo $this->form()->openTag($form); ?>
+<div class="tabbable">
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#tab1" data-toggle="tab"><?php echo $this->translate('Dados da Conta'); ?></a>
+        </li>
+        <li>
+            <a href="#tab2" data-toggle="tab"><?php echo $this->translate('Dados Adicionais'); ?></a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+            <?php $receivable = $form->get('receivable'); ?>
+            <?php echo $this->formHidden($receivable->get('receivableId')); ?>
+            <?php echo $this->formHidden($receivable->get('companyId')->setValue($this->companyAuth()->getCompanyId())); ?>
+            <?php $account = $receivable->get('account'); ?>
+            <legend>Dados da Conta</legend>
+            <div class="form-group"> 
+                <div class="row">
+                    <div class="col-md-6">
+                        <?php echo $this->formLabel($receivable->get('customerId')); ?>
+                        <?php echo $this->formSelect($receivable->get('customerId')); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <?php echo $this->formLabel($account->get('accountDescription')); ?>
+                        <?php echo $this->formText($account->get('accountDescription')); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <?php echo $this->formLabel($account->get('currentAccountId')); ?>
+                        <?php echo $this->formSelect($account->get('currentAccountId')); ?>
+                    </div>
+                    <div class="col-md-3">
+                        <?php echo $this->formLabel($account->get('paymentTypeId')); ?>
+                        <?php echo $this->formSelect($account->get('paymentTypeId')); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <?php echo $this->formLabel($account->get('accountingItemId')); ?>
+                        <?php echo $this->formSelect($account->get('accountingItemId')); ?>
+                    </div>
+                    <div class="col-md-3">
+                        <?php echo $this->formLabel($account->get('accountEmissionDate')); ?>
+                        <?php echo $this->avrFormDate($account->get('accountEmissionDate')); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <?php echo $this->formLabel($account->get('documentTypeId')); ?>
+                        <?php echo $this->formSelect($account->get('documentTypeId')); ?>
+                    </div>
+                    <div class="col-md-3">
+                        <?php echo $this->formLabel($account->get('accountExpirationDate')); ?>
+                        <?php echo $this->avrFormDate($account->get('accountExpirationDate')); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <?php echo $this->formLabel($account->get('departmentId')); ?>
+                        <?php echo $this->formSelect($account->get('departmentId')); ?>
+                    </div>
+                    <div class="col-md-3">
+                        <?php echo $this->formLabel($account->get('accountValue')); ?>
+                        <div class="input-group">
+                            <span class="input-group-addon">R$</span>
+                            <?php echo $this->formText($account->get('accountValue')); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tab2">
+            <legend>Dados Adicionais</legend>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <?php echo $this->formLabel($account->get('accountCarrier')); ?>
+                        <?php echo $this->formText($account->get('accountCarrier')); ?>
+                    </div>
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($account->get('accountAutoId')); ?>
+                        <?php echo $this->formText($account->get('accountAutoId')); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <?php echo $this->formLabel($account->get('accountBarcode')); ?>
+                        <?php echo $this->formText($account->get('accountBarcode')); ?>
+                    </div>
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($account->get('accountCompetencyDate')); ?>
+                        <?php echo $this->avrFormDate($account->get('accountCompetencyDate')); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($account->get('accountFine')); ?>
+                        <div class="input-group">
+                            <?php echo $this->formText($account->get('accountFine')); ?>
+                            <span class="input-group-addon">%</span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($account->get('accountInterest')); ?>
+                        <div class="input-group">
+                            <?php echo $this->formText($account->get('accountInterest')); ?>
+                            <span class="input-group-addon">%</span>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($account->get('accountInterestInterval')); ?>
+                        <?php echo $this->formSelect($account->get('accountInterestInterval')); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2 col-md-offset-4">
+                        <?php echo $this->formLabel($account->get('accountAutoLaunch')); ?>
+                        <?php echo $this->formSelect($account->get('accountAutoLaunch')); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <?php echo $this->formLabel($account->get('accountNotes')); ?>
+                        <?php echo $this->formTextarea($account->get('accountNotes')); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo $this->formHidden($form->get('security')); ?>
+<div class="btn-group">
+    <?php echo $this->formElement($form->get('submit')); ?>
+    <?php echo $this->formElement($form->get('cancel')); ?>
+</div>
+<?php echo $this->form()->closeTag(); ?>

@@ -1,0 +1,89 @@
+<?php
+$title = $this->translate('Clientes');
+$this->headTitle($title);
+?>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="panel-title"><i class="glyphicon glyphicon-user"></i> <?php echo $this->escapeHtml($title); ?></div>
+            </div>
+            <div class="col-md-6">
+                <div class="btn-group pull-right">
+                    <a class="btn btn-default btn-sm dropdown-toggle" data-toggle="dropdown" href="#"> <i class="glyphicon glyphicon-plus"></i> <?php echo $this->translate('Novo'); ?> &nbsp; <span class="caret"></span></a>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="<?php echo $this->url('admin/customer/add', array('action' => 'add', 'type' => base64_encode(0)));
+?>"><i class="glyphicon glyphicon-user"></i> Pessoa Física</a></li>
+                        <li><a href="<?php echo $this->url('admin/customer/add', array('action' => 'add', 'type' => base64_encode(1)));
+?>"><i class="fa fa-legal"></i> Pessoa Jurídica</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table class="table table-condensed table-hover">
+        <tr>
+            <th class="col-lg-1"><?php echo $this->translate('CÓD'); ?></th>
+            <th class=""><?php echo $this->translate('CLIENTE'); ?></th>
+            <th class="col-md-2"><?php echo $this->translate('CPF/CNPJ'); ?></th>
+            <th class="col-md-2"><?php echo $this->translate('TELEFONE'); ?></th>
+            <th class="col-md-2"><?php echo $this->translate(''); ?></th>
+        </tr>
+        <?php if (0 == count($this->customer)): ?>
+            <tr>
+                <td colspan="10" class="alert alert-info text-center"><?php echo $this->translate('Não há nenhum registro no banco de dados.') ?></td>
+            </tr>
+        <?php else: ?>
+            <?php foreach ($this->customer as $customer) : ?>
+                <tr>
+                    <td><?php echo str_pad($customer->getCustomerId(), 8, '0', STR_PAD_LEFT); ?></td>
+                    <td><?php echo $this->escapeHtml($customer->getPerson()->getPersonName()); ?></td>
+                    <?php if ($customer->getPerson()->getPersonType() == 1): ?>
+                        <td><?php echo $this->cnpj($customer->getPerson()->getLegal()->getLegalCnpj()); ?></td>
+                    <?php else: ?>
+                        <td><?php echo $this->cpf($customer->getPerson()->getIndividual()->getIndividualCpf()); ?></td>
+                    <?php endif; ?>
+                    <td><?php echo $this->escapeHtml($this->phone($customer->getPerson()->getContact()->getContactPhone())); ?></td>
+                    <td>
+                        <div class="btn-group btn-group-xs pull-right">
+                            <a class="btn btn-default" data-toggle="tooltip" title="Ver Detalhes" href="<?php
+                            echo $this->url('admin/customer/view', array('action' => 'view',
+                                'id' => $customer->getCustomerId()));
+                            ?>"><i class="glyphicon glyphicon-folder-open"></i></a>
+                            <a class="btn btn-default" data-toggle="tooltip" title="Apagar" href="<?php
+                            echo $this->url('admin/customer/delete', array('action' => 'delete',
+                                'id' => $customer->getCustomerId()));
+                            ?>"><i class="glyphicon glyphicon-remove"></i></a>
+                            <a class="btn btn-default" data-toggle="tooltip" title="Editar" href="<?php
+                            echo $this->url('admin/customer/edit', array('action' => 'edit',
+                                'id' => $customer->getCustomerId(), 'type' => base64_encode($customer->getPerson()->getPersonType())));
+                            ?>"><i class="glyphicon glyphicon-edit"></i></a>
+                            <a class="btn btn-default" data-toggle="tooltip" title="Patrimônio do Cliente" href="<?php
+                            echo $this->url('admin/customer/customer-patrimony/add', array('action' => 'add',
+                                'id' => $customer->getCustomerId()));
+                            ?>"><i class="glyphicon glyphicon-tower"></i></a>
+                            <a class="btn btn-default" data-toggle="tooltip" title="Contas do Cliente" href="<?php
+                            echo $this->url('admin/customer/customer-bank-account/add', array('action' => 'add',
+                                'id' => $customer->getCustomerId()));
+                            ?>"><i class="glyphicon glyphicon-usd"></i></a>
+                            <a class="btn btn-default" data-toggle="tooltip" title="Referências" href="<?php
+                            echo $this->url('admin/customer/customer-reference/add', array('action' => 'add',
+                                'id' => $customer->getCustomerId()));
+                            ?>"><i class="glyphicon glyphicon-thumbs-up"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </table>
+    <div class="panel-footer">
+        <?php
+        $paginationInfo = $this->placeholder('pagination');
+        if (!isset($paginationInfo->route)) {
+            $paginationInfo->route = 'admin/customer';
+            $paginationInfo->params = array();
+        }
+        ?>
+        <?php echo $this->paginationControl($this->customer, 'Sliding', 'layout/pagination'); ?>
+    </div>
+</div>

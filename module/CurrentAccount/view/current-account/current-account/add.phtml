@@ -1,0 +1,158 @@
+<?php
+$title = $this->translate('Adicionar Conta Corrente');
+$this->headTitle($title);
+$form = $this->form;
+$form->prepare();
+?>
+<h2 class="container-header"><i class="glyphicon glyphicon-random"></i> <?php echo $this->escapeHtml($title); ?></h2>
+<?php echo $this->form()->openTag($form); ?>
+<div class="tabbable">
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#tab1" data-toggle="tab"><?php echo $this->translate('Dados da Conta'); ?></a>
+        </li>
+        <li>
+            <a href="#tab2" data-toggle="tab"><?php echo $this->translate('Outras Informações'); ?></a>
+        </li>
+        <li>
+            <a href="#tab3" data-toggle="tab"><?php echo $this->translate('Cartão de Crédito'); ?></a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+            <?php $currentAccount = $form->get('currentAccount'); ?>
+            <legend><?php echo $currentAccount->getLabel(); ?></legend>
+            <?php echo $this->formHidden($currentAccount->get('currentAccountId')); ?>
+            <?php echo $this->formHidden($currentAccount->get('companyId')->setValue($this->companyAuth()->getCompanyId())); ?>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <?php echo $this->formLabel($currentAccount->get('currentAccountName')); ?>
+                        <?php echo $this->formText($currentAccount->get('currentAccountName')); ?>
+                    </div>
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($currentAccount->get('bankId')); ?>
+                        <?php echo $this->formSelect($currentAccount->get('bankId')); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($currentAccount->get('currentAccountAgency')); ?>
+                        <?php echo $this->formText($currentAccount->get('currentAccountAgency')); ?>
+                    </div>
+                    <div class="col-md-1">
+                        <?php echo $this->formLabel($currentAccount->get('currentAccountAgencyVd')); ?>
+                        <?php echo $this->formText($currentAccount->get('currentAccountAgencyVd')); ?>
+                    </div>
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($currentAccount->get('currentAccountAccount')); ?>
+                        <?php echo $this->formText($currentAccount->get('currentAccountAccount')); ?>
+                    </div>
+                    <div class="col-md-1">
+                        <?php echo $this->formLabel($currentAccount->get('currentAccountAccountVd')); ?>
+                        <?php echo $this->formText($currentAccount->get('currentAccountAccountVd')); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($currentAccount->get('currentAccountOpenBalance')); ?>
+                        <div class="input-group">
+                            <div class="input-group-addon">R$</div>
+                            <?php echo $this->formText($currentAccount->get('currentAccountOpenBalance')); ?>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($currentAccount->get('currentAccountCreditLimit')); ?>
+                        <div class="input-group">
+                            <div class="input-group-addon">R$</div>
+                            <?php echo $this->formText($currentAccount->get('currentAccountCreditLimit')); ?>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($currentAccount->get('currentAccountCreditExpiration')); ?>
+                        <?php echo $this->avrFormDate($currentAccount->get('currentAccountCreditExpiration')); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($currentAccount->get('currentAccountOpenDate')); ?>
+                        <?php echo $this->avrFormDate($currentAccount->get('currentAccountOpenDate')); ?>
+                    </div>
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($currentAccount->get('currencyId')); ?>
+                        <?php echo $this->formSelect($currentAccount->get('currencyId')); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <?php echo $this->formLabel($currentAccount->get('currentAccountDescription')); ?>
+                        <?php echo $this->formTextarea($currentAccount->get('currentAccountDescription')); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tab2">
+            <legend><?php echo $this->translate('Outras Informações'); ?></legend>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <?php echo $this->formLabel($currentAccount->get('currentAccountManager')); ?>
+                        <?php echo $this->formText($currentAccount->get('currentAccountManager')); ?>
+                    </div>
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($currentAccount->get('currentAccountManagerPhone')); ?>
+                        <?php echo $this->formText($currentAccount->get('currentAccountManagerPhone')); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <?php echo $this->formLabel($currentAccount->get('currentAccountManagerEmail')); ?>
+                        <?php echo $this->formText($currentAccount->get('currentAccountManagerEmail')); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <?php echo $this->formLabel($currentAccount->get('currentAccountBankHomePage')); ?>
+                        <?php echo $this->formText($currentAccount->get('currentAccountBankHomePage')); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tab3">
+            <legend><?php echo $this->translate('Cartão de Crédito'); ?></legend>
+            <?php $creditCard = $currentAccount->get('creditCard'); ?>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <?php echo $this->formLabel($creditCard->get('creditCardNumber')); ?>
+                        <?php echo $this->formText($creditCard->get('creditCardNumber')); ?>
+                    </div>
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($creditCard->get('creditCardBrand')); ?>
+                        <?php echo $this->formSelect($creditCard->get('creditCardBrand')); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($creditCard->get('creditCardClosing')); ?>
+                        <?php echo $this->formSelect($creditCard->get('creditCardClosing')); ?>
+                    </div>
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($creditCard->get('creditCardExpiration')); ?>
+                        <?php echo $this->formSelect($creditCard->get('creditCardExpiration')); ?>
+                    </div>
+                    <div class="col-md-2">
+                        <?php echo $this->formLabel($creditCard->get('creditCardValidity')); ?>
+                        <?php echo $this->formText($creditCard->get('creditCardValidity')); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo $this->formHidden($form->get('security')); ?>
+<div class="btn-group">
+    <?php echo $this->formElement($form->get('submit')); ?>
+    <?php echo $this->formElement($form->get('cancel')); ?>
+</div>
+<?php echo $this->form()->closeTag(); ?>

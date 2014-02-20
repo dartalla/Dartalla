@@ -1,0 +1,117 @@
+<?php
+$sponsor = $this->sponsor;
+$person = $sponsor->getPerson();
+$address = $person->getAddress();
+$contact = $person->getContact();
+$individual = $person->getIndividual();
+$legal = $person->getLegal();
+$title = 'Detalhes de ' . $person->getPersonName();
+$this->headTitle($title);
+?>
+<h4>Avalista / Cônjuge</h4>
+<div class="row">
+    <div class="col-md-8">
+        <blockquote>
+            <p class="text-danger"><?php echo $person->getPersonName(); ?></small>
+        </blockquote>
+    </div>
+    <div class="col-md-4">
+        <div class="btn-group pull-right">
+            <div class="btn-group">
+                <a class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#"> <i class="glyphicon glyphicon-plus"></i> <?php echo $this->translate('Novo'); ?> &nbsp; <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="<?php
+                        echo $this->url('admin/sponsor/add', array('action' => 'add',
+                            'type' => base64_encode(0)));
+                        ?>"><i class="glyphicon glyphicon-user"></i> Pessoa Física</a></li>
+                    <li><a href="<?php
+                        echo $this->url('admin/sponsor/add', array('action' => 'add',
+                            'type' => base64_encode(1)));
+                        ?>"><i class="fa fa-legal"></i> Pessoa Jurídica</a></li>
+                </ul>
+            </div>
+            <a class="btn btn-default" href="<?php
+            echo $this->url('admin/sponsor/edit', array('action' => 'edit',
+                'id' => $sponsor->getSponsorId(), 'type' => base64_encode($sponsor->getPerson()->getPersonType())));
+            ?>"><i class="glyphicon glyphicon-edit"></i> <?php echo $this->translate('Editar'); ?></a>
+            <a class="btn btn-default" href="<?php
+            echo $this->url('admin/sponsor/delete', array('action' => 'delete',
+                'id' => $sponsor->getSponsorId()));
+            ?>"><i class="glyphicon glyphicon-remove"></i> <?php echo $this->translate('Apagar'); ?></a>
+            <a class="btn btn-default" href="<?php echo $this->url('admin/sponsor'); ?>"><i class="glyphicon glyphicon-chevron-left"></i> <?php echo $this->translate('Voltar'); ?></a>
+        </div>
+    </div>
+</div>
+<dl class="dl-horizontal">
+    <?php if ($person->getPersonType()): ?>
+        <legend>Dados da Pessoa Jurídica</legend>
+        <dt>CNPJ:</dt>
+        <dd><?php echo $this->cnpj($legal->getLegalCnpj()); ?>&nbsp;</dd>
+        <dt>Inscrição Estadual:</dt>
+        <dd><?php echo $legal->getLegalSubscription(); ?>&nbsp;</dd>
+        <dt>Representante:</dt>
+        <dd><?php echo $legal->getLegalRepresentativeName(); ?>&nbsp;</dd>
+        <dt>Telefone do Rep.:</dt>
+        <dd><?php echo $this->phone($legal->getLegalRepresentativePhone()); ?>&nbsp;</dd>
+    <?php else: ?>
+        <legend>Dados da Pessoa Física</legend>
+        <div class="row">
+            <div class="col-md-6">
+                <dt>CPF:</dt>
+                <dd><?php echo $this->cpf($individual->getIndividualCpf()); ?>&nbsp;</dd>
+                <dt>RG:</dt>
+                <dd><?php echo $individual->getIndividualRg(); ?>&nbsp;</dd>
+                <dt>Sexo:</dt>
+                <dd><?php echo $this->gender($individual->getIndividualGender()); ?>&nbsp;</dd>
+                <dt>Natural de:</dt>
+                <dd><?php echo $individual->getIndividualBirthPlace(); ?>/<?php echo $individual->getIndividualBirthUf(); ?>&nbsp;</dd>
+                <dt>Nome da Mãe:</dt>
+                <dd><?php echo $individual->getIndividualMother(); ?>&nbsp;</dd>
+            </div>
+            <div class="col-md-6">
+                <dt>Data de Nascimento:</dt>
+                <dd><?php echo $this->birthday($individual->getIndividualBirthDay(), $individual->getIndividualBirthMonth(), $individual->getIndividualBirthYear()); ?></dd>
+                <dt>Órgão Expedidor:</dt>
+                <dd><?php echo $individual->getIndividualRgOrgan(); ?> / <?php echo $individual->getIndividualRgUf(); ?></dd>
+                <dt>Data de Expedição:</dt>
+                <dd><?php echo $this->date($individual->getIndividualRgDate()); ?>&nbsp;</dd>
+                <dt>Nacionalidade:</dt>
+                <dd><?php echo $individual->getIndividualNationality(); ?>&nbsp;</dd>
+                <dt>Nome do Pai:</dt>
+                <dd><?php echo $individual->getIndividualFather(); ?>&nbsp;</dd>
+            </div>
+        </div>
+    <?php endif; ?>
+
+    <legend>Dados de Contato</legend>
+    <div class="row">
+        <div class="col-md-6">
+            <dt>Endereço:</dt>
+            <dd><?php echo $address->getAddressName(); ?>, nº <?php echo $address->getAddressNumber(); ?></dd>
+            <dt>Complemento:</dt>
+            <dd><?php echo $address->getAddressComplement(); ?>&nbsp;</dd>
+            <dt>Bairro:</dt>
+            <dd><?php echo $address->getAddressQuarter(); ?>&nbsp;</dd>
+            <dt>CEP:</dt>
+            <dd><?php echo $this->cep($address->getAddressPostalCode()); ?>&nbsp;</dd>
+            <dt>Cidade:</dt>
+            <dd><?php echo $address->getAddressCity(); ?>&nbsp;</dd>
+            <dt>Estado:</dt>
+            <dd><?php echo $address->getAddressState(); ?>&nbsp;</dd>
+            <dt>País:</dt>
+            <dd><?php echo $address->getAddressCountry(); ?>&nbsp;</dd>
+        </div>
+        <div class="col-md-6">
+            <dt>Email:</dt>
+            <dd><?php echo $contact->getContactEmail(); ?>&nbsp;</dd>
+            <dt>Website:</dt>
+            <dd><?php echo $contact->getContactWebsite(); ?>&nbsp;</dd>
+            <dt>Telefone:</dt>
+            <dd><?php echo $this->phone($contact->getContactPhone()); ?>&nbsp;</dd>
+            <dt>Celular:</dt>
+            <dd><?php echo $this->phone($contact->getContactCell()); ?>&nbsp;</dd>
+            <dt>FAX:</dt>
+            <dd><?php echo $this->phone($contact->getContactFax()); ?>&nbsp;</dd>
+        </div>
+    </div>
+</dl>

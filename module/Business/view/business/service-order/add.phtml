@@ -1,0 +1,201 @@
+<?php
+$title = $this->translate('Adicionar Ordem de Serviço');
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<?php
+$form = $this->form;
+$form->prepare();
+?>
+<?php echo $this->form()->openTag($form); ?>
+<div class="tabbable">
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#tab1" data-toggle="tab"><?php echo $this->translate('Dados da Ordem de Serviço'); ?></a>
+        </li>
+        <li>
+            <a href="#tab2" data-toggle="tab"><?php echo $this->translate('Informações Adicionais'); ?></a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+            <?php $serviceOrder = $form->get('service-order'); ?>
+            <?php echo $this->formHidden($serviceOrder->get('service-orderId')); ?>
+            <?php echo $this->formHidden($serviceOrder->get('companyId')->setValue($this->companyAuth()->getCompanyId())); ?>
+            <?php $account = $serviceOrder->get('account'); ?>
+            <legend>Ordem de Serviço</legend>
+            <div class="span9"> 
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Pagar para'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formSelect($serviceOrder->get('supplierId')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Descrição'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formText($account->get('accountDescription')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Conta'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formSelect($account->get('currentAccountId')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Forma de Pagamento'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formSelect($account->get('paymentTypeId')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Item Contábil'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formSelect($account->get('accountingItemId')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Departamento'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formSelect($account->get('departmentId')); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="span6">
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Tipo de Documento'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formSelect($account->get('documentTypeId')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Data de Emissão'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->avrFormDate($account->get('accountEmissionDate')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Data de Vencimento'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->avrFormDate($account->get('accountExpirationDate')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Valor'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <div class="input-prepend">
+                            <span class="add-on">R$</span>
+                            <?php echo $this->formText($account->get('accountValue')); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane" id="tab2">
+            <legend>Dados Adicionais</legend>
+            <div class="span7">
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Competência'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->avrFormDate($account->get('accountCompetencyDate')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Portador'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formText($account->get('accountCarrier')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Código de Barras'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formText($account->get('accountBarcode')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Observações'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formTextArea($account->get('accountNotes')); ?>
+                    </div>
+                </div>
+            </div>
+            <div class="span6">
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Auto Número'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formText($account->get('accountAutoId')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Lançamento'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formSelect($account->get('accountAutoLaunch')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Multa'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formText($account->get('accountFine')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Juros'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formText($account->get('accountInterest')); ?>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <div class="control-label">
+                        <label><?php echo $this->translate('Período de Cálculo'); ?></label>
+                    </div>
+                    <div class="controls">
+                        <?php echo $this->formSelect($account->get('accountInterestInterval')); ?>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="form-actions">
+    <?php echo $this->formHidden($form->get('security')); ?>
+    <?php echo $this->formElement($form->get('submit')); ?>
+    <?php echo $this->formElement($form->get('cancel')); ?>
+</div>
+<?php echo $this->form()->closeTag(); ?>

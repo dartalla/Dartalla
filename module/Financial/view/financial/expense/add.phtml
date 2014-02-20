@@ -1,0 +1,78 @@
+<?php
+$title = $this->translate('Adicionar Despesa');
+$this->headTitle($title);
+$form = $this->form;
+$form->prepare();
+?>
+<h1 class="container-header"><i class="fa fa-upload-alt"></i> <?php echo $this->escapeHtml($title); ?></h1>
+<?php echo $this->form()->openTag($form); ?>
+<div class="tabbable">
+    <ul class="nav nav-tabs">
+        <li class="active">
+            <a href="#tab1" data-toggle="tab"><?php echo $this->translate('Dados da Despesa'); ?></a>
+        </li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="tab1">
+            <?php $expense = $form->get('expense'); ?>
+            <?php echo $this->formHidden($expense->get('expenseId')); ?>
+            <?php echo $this->formHidden($expense->get('companyId')->setValue($this->companyAuth()->getCompanyId())); ?>
+            <?php $launch = $expense->get('launch'); ?>
+            <div class="form-group"> 
+                <div class="row">
+                    <div class="col-md-6">
+                        <?php echo $this->formLabel($expense->get('supplierId')); ?>
+                        <?php echo $this->formSelect($expense->get('supplierId')); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <?php echo $this->formLabel($launch->get('launchDescription')); ?>
+                        <?php echo $this->formText($launch->get('launchDescription')); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <?php echo $this->formLabel($launch->get('currentAccountId')); ?>
+                        <?php echo $this->formSelect($launch->get('currentAccountId')); ?>
+                    </div>
+                    <div class="col-md-3">
+                        <?php echo $this->formLabel($launch->get('accountingItemId')); ?>
+                        <?php echo $this->formSelect($launch->get('accountingItemId')); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <?php echo $this->formLabel($launch->get('departmentId')); ?>
+                        <?php echo $this->formSelect($launch->get('departmentId')); ?>
+                    </div>
+                    <div class="col-md-3">
+                        <?php echo $this->formLabel($launch->get('launchDate')); ?>
+                        <?php echo $this->avrFormDate($launch->get('launchDate')); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-3">
+                        <?php echo $this->formLabel($launch->get('launchNumber')); ?>
+                        <?php echo $this->formText($launch->get('launchNumber')); ?>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-md-offset-3">
+                        <?php echo $this->formLabel($launch->get('launchValue')); ?>
+                        <div class="input-group">
+                            <span class="input-group-addon">R$</span>
+                            <?php echo $this->formText($launch->get('launchValue')); ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<?php echo $this->formHidden($form->get('security')); ?>
+<div class="btn-group">
+    <?php echo $this->formElement($form->get('submit')); ?>
+    <?php echo $this->formElement($form->get('cancel')); ?>
+</div>
+<?php echo $this->form()->closeTag(); ?>
