@@ -36,4 +36,14 @@ class Module
             ),
         );
     }
+    
+    public function onDispatch(\Zend\Mvc\MvcEvent $e) {
+        $app = $e->getParam('application');
+        $layout = $app->getMvcEvent()->getViewModel();
+        if ($app->getRequest()->isXmlHttpRequest()) {
+            $controller = $e->getTarget();
+            $controller->layout('application/layout/blank');
+            $layout->setTerminal(true);
+        }
+    }
 }

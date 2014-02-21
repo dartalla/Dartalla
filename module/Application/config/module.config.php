@@ -8,6 +8,7 @@
  */
 
 return array(
+    
     'router' => array(
         'routes' => array(
             'home' => array(
@@ -90,6 +91,24 @@ return array(
         ),
         'template_path_stack' => array(
             __DIR__ . '/../view',
+        ),
+        'strategies' => array(
+            'ViewJsonStrategy',
+        )
+    ),
+    'module_layouts' => array(
+        'Application' => 'layout/layout.phtml',
+    ),
+    'asset_manager' => array(
+        'resolver_configs' => array(
+            'paths' => array(
+                __DIR__ . '/../public',
+            ),
+        ),
+        'caching' => array(
+            'default' => array(
+                'cache' => 'Apc', // Apc, FilePath, FileSystem etc.
+            ),
         ),
     ),
     // Placeholder for console routes
